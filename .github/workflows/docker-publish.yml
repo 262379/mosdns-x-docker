@@ -41,5 +41,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/mosdns-x:latest
-            ghcr.io/${{ github.repository_owner }}/mosdns-x:${{ env.TAG }}
+            ghcr.io/${{ github.repository_owner }}/mosdns-x-docker:latest
+            ghcr.io/${{ github.repository_owner }}/mosdns-x-docker:${{ env.TAG }}
