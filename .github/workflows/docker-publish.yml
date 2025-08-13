@@ -14,10 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Get latest TAG from pmkol/mosdns-x
+      - name: Set build TAG as current time
         run: |
-          TAG=$(curl -s https://api.github.com/repos/pmkol/mosdns-x/tags | jq -r '.[0].name')
-          echo "TAG=$TAG" >> $GITHUB_ENV
+          # 使用 UTC 时间生成唯一 TAG，例如 20250813-1830
+          BUILD_TAG=$(date -u +"%Y%m%d-%H%M")
+          echo "BUILD_TAG=$BUILD_TAG" >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -36,10 +37,10 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            TAG=${{ env.TAG }}
+            TAG=${{ env.BUILD_TAG }}
             REPOSITORY=pmkol/mosdns-x
           platforms: linux/amd64
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/mosdns-x-docker:latest
-            ghcr.io/${{ github.repository_owner }}/mosdns-x-docker:${{ env.TAG }}
+            ghcr.io/${{ github.repository_owner }}/mosdns-x-docker:${{ env.BUILD_TAG }}
