@@ -20,5 +20,5 @@ RUN apk add --no-cache ca-certificates \
 VOLUME /etc/mosdns
 EXPOSE 53/udp 53/tcp
 CMD ["/usr/bin/mosdns", "start", "--dir", "/etc/mosdns"]
-修改为 Debian，预设 Python3 python3-venv pip
+
 
